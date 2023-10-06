@@ -1,4 +1,5 @@
 const StatusCode = {
+  UNAUTHORIZED: "401",
   FORBIDDEN: "403",
   CONFLICT: "409",
 };
@@ -33,4 +34,9 @@ class BadRequestError extends ErrorResponse {
   }
 }
 
-module.exports = { ConflictRequestError, BadRequestError };
+class UnAuthorizedError extends ErrorResponse {
+  constructor(message = "UnAuthorized", statusCode = StatusCode.UNAUTHORIZED) {
+    super(message, statusCode);
+  }
+}
+module.exports = { ConflictRequestError, BadRequestError, UnAuthorizedError };
