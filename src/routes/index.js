@@ -1,13 +1,16 @@
 const express = require("express");
 const authRouter = require("./auth");
+const { apiKey } = require("../middleware/apikey.middleware");
+const { checkPermission } = require("../middleware/permissions.middleware");
+
 const router = express.Router();
 
+// check api key
+router.use(apiKey);
+// check permissions
+router.use(checkPermission("0000"));
+
+// router
 router.use("/v1/api", authRouter);
-// router.get("", (req, res, next) => {
-//   const wordCompress = "Alo";
-//   return res.status(200).json({
-//     message: "Hello world",
-//     metadata: wordCompress.repeat(10000),
-//   });
-// });
+
 module.exports = router;

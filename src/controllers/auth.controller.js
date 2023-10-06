@@ -1,12 +1,15 @@
 const AuthService = require("../services/auth.service");
+const { Created } = require("../utils/success.response");
 
 class AuthController {
   signUp = async (req, res, next) => {
-    try {
-      return res.status(201).json(await AuthService.signUp(req.body));
-    } catch (error) {
-      next(error);
-    }
+    return new Created({
+      message: "Registerd successfully",
+      data: await AuthService.signUp(req.body),
+      options: {
+        limit: 10,
+      },
+    }).send(res);
   };
 }
 
